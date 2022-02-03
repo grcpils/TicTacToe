@@ -18,10 +18,16 @@ class Mastermind():
     self.clock = pygame.time.Clock()
 
   def gameloop(self):
+
     while self.done == False:
       self.window.fill(self.color_primary)
-      pygame.display.flip()
 
+      button_size = (160, 40)
+      button_pos = ((self.window_size[0]/2) - button_size[0]/2, (self.window_size[1]/2) - button_size[1]/2)
+
+      pygame.draw.rect(self.window, self.color_secondary, pygame.Rect(button_pos[0], button_pos[1], button_size[0], button_size[1]))
+
+      pygame.display.flip()
       for event in pygame.event.get():
         if event.type == pygame.QUIT:
           self.done = True
@@ -30,8 +36,6 @@ class Mastermind():
 
   def quit(self):
     pygame.quit()
-
-
 
 
 def main():
