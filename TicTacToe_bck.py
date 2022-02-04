@@ -24,6 +24,7 @@ class TicTacToe():
       "player1": (20, 120, 245),
       "player2": (245, 140, 20)
     }
+
     self.current_player = "player1"
 
     self.done = False
@@ -56,7 +57,28 @@ class TicTacToe():
         if event.type == pygame.MOUSEBUTTONUP:
           x,y = pygame.mouse.get_pos()
           self.button_click(x, y)
+
       self.clock.tick(60)
+
+  def swap_players(self):
+    if self.current_player == "player1":
+      self.current_player = "player2"
+    else:
+      self.current_player = "player1"
+
+  def init_game_dictionnary(self):
+    btn_coord = [(10,50), (120, 50), (230, 50),
+                   (10, 160), (120, 160), (230,160),
+                   (10, 270), (120, 270), (230, 270)]
+
+    for pos in btn_coord:
+      rect = pygame.Rect(pos[0], pos[1], self.button_size[0], self.button_size[1])
+      dict = {
+        "rect": rect,
+        "color": self.color_empty,
+        "player": -1
+      }
+      self.game_array.append(dict)
 
   def button_click(self, x, y):
     for dict in self.game_array:
@@ -65,12 +87,6 @@ class TicTacToe():
         dict["color"] = self.players_color[self.current_player]
         self.check_victory()
         self.swap_players()
-
-  def swap_players(self):
-    if self.current_player == "player1":
-      self.current_player = "player2"
-    else:
-      self.current_player = "player1"
 
   # [0][1][2]
   # [3][4][5]
@@ -88,22 +104,11 @@ class TicTacToe():
       self.winner = self.players[self.current_player]
       self.done = True
 
-  def init_game_dictionnary(self):
-    btn_coord = [(10,50), (120, 50), (230, 50),
-                 (10, 160), (120, 160), (230,160),
-                 (10, 270), (120, 270), (230, 270)]
-    for pos in btn_coord:
-      rect = pygame.Rect(pos[0], pos[1], self.button_size[0], self.button_size[1])
-      dict = {
-        "rect": rect,
-        "color": self.color_empty,
-        "player": -1
-      }
-      self.game_array.append(dict)
-
   def quit(self):
-    print("Player " + self.winner + " win this round !")
+    print("Well done " + self.winner + " !!")
     pygame.quit()
+
+
 
 
 def main():
